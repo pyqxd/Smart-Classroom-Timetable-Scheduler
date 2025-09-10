@@ -315,11 +315,6 @@
             color: white;
         }
 
-        .stat-icon.orange {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            color: white;
-        }
-
         .stat-value {
             font-size: 32px;
             font-weight: bold;
@@ -405,6 +400,7 @@
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
         }
 
         .recent-activity h2 {
@@ -459,107 +455,155 @@
             font-size: 12px;
         }
 
-        /* User dropdown menu */
-        .user-dropdown {
-            position: absolute;
-            top: 60px;
-            right: 30px;
+        /* Timetable Status */
+        .timetable-status {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 200px;
-            z-index: 1000;
-            display: none;
-            overflow: hidden;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
         }
 
-        .user-dropdown.active {
-            display: block;
+        .timetable-status h2 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 20px;
         }
 
-        .dropdown-item {
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: background 0.3s ease;
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
         }
 
-        .dropdown-item:hover {
-            background: #f5f7fa;
-        }
-
-        .dropdown-divider {
-            height: 1px;
-            background: #eaeaea;
-        }
-
-        /* Notification dropdown */
-        .notification-dropdown {
-            position: absolute;
-            top: 60px;
-            right: 180px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            z-index: 1000;
-            display: none;
-        }
-
-        .notification-dropdown.active {
-            display: block;
-        }
-
-        .notification-header {
-            padding: 15px 20px;
-            border-bottom: 1px solid #eaeaea;
+        .status-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
         }
 
-        .notification-header h3 {
-            font-size: 16px;
+        .status-label {
+            font-weight: 500;
             color: #2c3e50;
         }
 
-        .notification-list {
-            max-height: 300px;
-            overflow-y: auto;
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
         }
 
-        .notification-item {
-            padding: 15px 20px;
-            border-bottom: 1px solid #f0f0f0;
+        .status-badge.active {
+            background: #d4f8e8;
+            color: #00b574;
+        }
+
+        .status-badge.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-badge.inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Quick Generator */
+        .quick-generator {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .quick-generator h2 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .quick-generator select {
+            padding: 12px 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            margin-right: 15px;
+            width: 250px;
+            font-size: 14px;
+        }
+
+        .generate-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
             cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Conflict Alerts */
+        .conflict-alerts {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .conflict-alerts h2 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #fff5f5;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .alert-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .alert-icon {
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .alert-item span {
+            flex: 1;
+            color: #2c3e50;
+        }
+
+        .resolve-btn {
+            padding: 8px 15px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
             transition: background 0.3s ease;
         }
 
-        .notification-item:hover {
-            background: #f8f9fa;
-        }
-
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-
-        .notification-title {
-            color: #2c3e50;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .notification-time {
-            color: #95a5a6;
-            font-size: 12px;
-        }
-
-        .notification-footer {
-            padding: 10px 20px;
-            text-align: center;
-            border-top: 1px solid #eaeaea;
+        .resolve-btn:hover {
+            background: #ff3742;
         }
 
         /* Responsive Design */
@@ -582,13 +626,24 @@
                 grid-template-columns: 1fr;
             }
 
-            .user-dropdown {
-                right: 10px;
+            .quick-generator select {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 15px;
             }
-
-            .notification-dropdown {
-                right: 160px;
-                width: 280px;
+            
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .alert-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .resolve-btn {
+                margin-top: 10px;
+                align-self: flex-end;
             }
         }
     </style>
@@ -610,29 +665,21 @@
                     <span class="nav-icon">🏠</span>
                     <span class="nav-text">Dashboard</span>
                 </a>
-                <a href="timetable.html" class="nav-item">
+                <a href="generate-timetable.html" class="nav-item">
                     <span class="nav-icon">📅</span>
-                    <span class="nav-text">Timetables</span>
+                    <span class="nav-text">Generate Timetable</span>
                 </a>
-                <a href="faculty.html" class="nav-item">
-                    <span class="nav-icon">👨‍🏫</span>
-                    <span class="nav-text">Faculty</span>
+                <a href="manage-data.html" class="nav-item">
+                    <span class="nav-icon">🗃️</span>
+                    <span class="nav-text">Manage Data</span>
                 </a>
-                <a href="classrooms.html" class="nav-item">
-                    <span class="nav-icon">🏫</span>
-                    <span class="nav-text">Classrooms</span>
+                <a href="view-schedules.html" class="nav-item">
+                    <span class="nav-icon">👁️</span>
+                    <span class="nav-text">View Schedules</span>
                 </a>
-                <a href="students.html" class="nav-item">
-                    <span class="nav-icon">👥</span>
-                    <span class="nav-text">Student Batches</span>
-                </a>
-                <a href="courses.html" class="nav-item">
-                    <span class="nav-icon">📚</span>
-                    <span class="nav-text">Courses</span>
-                </a>
-                <a href="reports.html" class="nav-item">
-                    <span class="nav-icon">📊</span>
-                    <span class="nav-text">Reports</span>
+                <a href="resolve-conflicts.html" class="nav-item">
+                    <span class="nav-icon">⚡</span>
+                    <span class="nav-text">Resolve Conflicts</span>
                 </a>
                 <a href="settings.html" class="nav-item">
                     <span class="nav-icon">⚙️</span>
@@ -655,68 +702,20 @@
                 </div>
                 
                 <div class="header-actions">
-                    <button class="notification-btn" onclick="toggleNotifications()">
+                    <button class="notification-btn">
                         <span style="font-size: 24px;">🔔</span>
                         <span class="notification-badge">3</span>
                     </button>
                     
-                    <div class="user-menu" onclick="toggleUserMenu()">
+                    <div class="user-menu">
                         <div class="user-avatar">JD</div>
                         <div>
                             <div style="font-weight: 600; font-size: 14px;">John Doe</div>
                             <div style="font-size: 12px; color: #7f8c8d;">Administrator</div>
                         </div>
-                        <span>▼</span>
                     </div>
                 </div>
             </header>
-
-            <!-- Notification Dropdown -->
-            <div class="notification-dropdown" id="notificationDropdown">
-                <div class="notification-header">
-                    <h3>Notifications</h3>
-                    <span style="color: #667eea; cursor: pointer;">Mark all as read</span>
-                </div>
-                <div class="notification-list">
-                    <div class="notification-item">
-                        <div class="notification-title">New timetable generated</div>
-                        <div class="notification-time">10 minutes ago</div>
-                    </div>
-                    <div class="notification-item">
-                        <div class="notification-title">Professor Smith updated availability</div>
-                        <div class="notification-time">1 hour ago</div>
-                    </div>
-                    <div class="notification-item">
-                        <div class="notification-title">Classroom 101 maintenance scheduled</div>
-                        <div class="notification-time">2 hours ago</div>
-                    </div>
-                </div>
-                <div class="notification-footer">
-                    <span style="color: #667eea; cursor: pointer;">View all notifications</span>
-                </div>
-            </div>
-
-            <!-- User Dropdown Menu -->
-            <div class="user-dropdown" id="userDropdown">
-                <div class="dropdown-item">
-                    <span>👤</span>
-                    <span>Profile</span>
-                </div>
-                <div class="dropdown-item">
-                    <span>⚙️</span>
-                    <span>Settings</span>
-                </div>
-                <div class="dropdown-divider"></div>
-                <div class="dropdown-item">
-                    <span>❓</span>
-                    <span>Help & Support</span>
-                </div>
-                <div class="dropdown-divider"></div>
-                <div class="dropdown-item" onclick="logout()">
-                    <span>🚪</span>
-                    <span>Logout</span>
-                </div>
-            </div>
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
@@ -760,16 +759,56 @@
                         </div>
                         <span class="stat-change positive">+3 this week</span>
                     </div>
+                </div>
 
-                    <div class="stat-card">
-                        <div class="stat-card-header">
-                            <div>
-                                <div class="stat-value">1,250</div>
-                                <div class="stat-label">Students</div>
-                            </div>
-                            <div class="stat-icon orange">👥</div>
+                <!-- Timetable Status Overview -->
+                <div class="timetable-status">
+                    <h2>Current Timetable Status</h2>
+                    <div class="status-grid">
+                        <div class="status-item">
+                            <span class="status-label">Computer Science</span>
+                            <span class="status-badge active">Active</span>
                         </div>
-                        <span class="stat-change positive">+28 new</span>
+                        <div class="status-item">
+                            <span class="status-label">Mathematics</span>
+                            <span class="status-badge pending">Pending Review</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Engineering</span>
+                            <span class="status-badge active">Active</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Business Administration</span>
+                            <span class="status-badge inactive">Needs Update</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Schedule Generator -->
+                <div class="quick-generator">
+                    <h2>Quick Schedule Generator</h2>
+                    <select id="departmentSelect">
+                        <option>Select Department</option>
+                        <option>Computer Science</option>
+                        <option>Mathematics</option>
+                        <option>Engineering</option>
+                        <option>Business Administration</option>
+                    </select>
+                    <button class="generate-btn" onclick="generateTimetable()">Generate Timetable</button>
+                </div>
+
+                <!-- Conflict Alerts -->
+                <div class="conflict-alerts">
+                    <h2>Schedule Conflicts</h2>
+                    <div class="alert-item">
+                        <span class="alert-icon">⚠️</span>
+                        <span>Room 101 double-booked on Monday 2PM (CS101 & MATH202)</span>
+                        <button class="resolve-btn">Resolve</button>
+                    </div>
+                    <div class="alert-item">
+                        <span class="alert-icon">⚠️</span>
+                        <span>Prof. Smith scheduled for two classes at same time (Tue 11AM)</span>
+                        <button class="resolve-btn">Resolve</button>
                     </div>
                 </div>
 
@@ -777,28 +816,28 @@
                 <div class="quick-actions">
                     <h2>Quick Actions</h2>
                     <div class="action-buttons">
-                        <a href="timetable.html" class="action-btn">
+                        <a href="generate-timetable.html" class="action-btn">
                             <span class="action-icon">📅</span>
                             Generate Timetable
                         </a>
-                        <a href="faculty.html" class="action-btn">
-                            <span class="action-icon">👨‍🏫</span>
-                            Manage Faculty
+                        <a href="manage-data.html" class="action-btn">
+                            <span class="action-icon">🗃️</span>
+                            Manage Data
                         </a>
-                        <a href="classrooms.html" class="action-btn">
-                            <span class="action-icon">🏫</span>
-                            View Classrooms
+                        <a href="view-schedules.html" class="action-btn">
+                            <span class="action-icon">👁️</span>
+                            View Schedules
                         </a>
-                        <a href="students.html" class="action-btn">
-                            <span class="action-icon">👥</span>
-                            Student Batches
+                        <a href="resolve-conflicts.html" class="action-btn">
+                            <span class="action-icon">⚡</span>
+                            Resolve Conflicts
                         </a>
                     </div>
                 </div>
 
                 <!-- Recent Activity -->
                 <div class="recent-activity">
-                    <h2>Recent Activity</h2>
+                    <h2>Timetable Activity</h2>
                     <ul class="activity-list">
                         <li class="activity-item">
                             <div class="activity-icon" style="background: #e3f2fd; color: #1976d2;">📅</div>
@@ -808,24 +847,17 @@
                             </div>
                         </li>
                         <li class="activity-item">
-                            <div class="activity-icon" style="background: #e8f5e9; color: #388e3c;">👨‍🏫</div>
+                            <div class="activity-icon" style="background: #fff3e0; color: #f57c00;">⚠️</div>
                             <div class="activity-details">
-                                <div class="activity-title">Professor Smith added to Faculty database</div>
+                                <div class="activity-title">2 conflicts detected in Engineering timetable</div>
                                 <div class="activity-time">Yesterday at 3:45 PM</div>
                             </div>
                         </li>
                         <li class="activity-item">
-                            <div class="activity-icon" style="background: #fff3e0; color: #f57c00;">🏫</div>
+                            <div class="activity-icon" style="background: #e8f5e9; color: #388e3c;">✅</div>
                             <div class="activity-details">
-                                <div class="activity-title">Classroom 101 updated with new equipment</div>
+                                <div class="activity-title">Mathematics timetable approved by department head</div>
                                 <div class="activity-time">September 12, 2023</div>
-                            </div>
-                        </li>
-                        <li class="activity-item">
-                            <div class="activity-icon" style="background: #fbe9e7; color: #d84315;">👥</div>
-                            <div class="activity-details">
-                                <div class="activity-title">New student batch created for Semester 3</div>
-                                <div class="activity-time">September 10, 2023</div>
                             </div>
                         </li>
                     </ul>
@@ -844,49 +876,19 @@
             localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
         }
 
-        // Toggle user dropdown menu
-        function toggleUserMenu() {
-            const dropdown = document.getElementById('userDropdown');
-            dropdown.classList.toggle('active');
+        // Generate timetable function
+        function generateTimetable() {
+            const departmentSelect = document.getElementById('departmentSelect');
+            const selectedDepartment = departmentSelect.value;
             
-            // Close notifications if open
-            document.getElementById('notificationDropdown').classList.remove('active');
-        }
-
-        // Toggle notifications dropdown
-        function toggleNotifications() {
-            const dropdown = document.getElementById('notificationDropdown');
-            dropdown.classList.toggle('active');
-            
-            // Close user menu if open
-            document.getElementById('userDropdown').classList.remove('active');
-            
-            // Clear notification badge
-            document.querySelector('.notification-badge').style.display = 'none';
-        }
-
-        // Logout function
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                window.location.href = 'login.html';
-            }
-        }
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            const userMenu = document.querySelector('.user-menu');
-            const userDropdown = document.getElementById('userDropdown');
-            const notificationBtn = document.querySelector('.notification-btn');
-            const notificationDropdown = document.getElementById('notificationDropdown');
-            
-            if (!userMenu.contains(event.target) && !userDropdown.contains(event.target)) {
-                userDropdown.classList.remove('active');
+            if (selectedDepartment === 'Select Department') {
+                alert('Please select a department first');
+                return;
             }
             
-            if (!notificationBtn.contains(event.target) && !notificationDropdown.contains(event.target)) {
-                notificationDropdown.classList.remove('active');
-            }
-        });
+            alert(`Generating timetable for ${selectedDepartment} department...`);
+            // In a real application, this would trigger an API call to generate the timetable
+        }
 
         // Load sidebar state from localStorage
         document.addEventListener('DOMContentLoaded', function() {
@@ -897,17 +899,19 @@
                 sidebar.classList.add('collapsed');
             }
             
-            // Simulate page loading for demonstration
-            console.log('Dashboard loaded successfully');
-            
-            // You can add more interactive functionality here
-            const actionButtons = document.querySelectorAll('.action-btn');
-            actionButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    console.log('Navigating to: ' + this.getAttribute('href'));
-                    // In a real application, this would navigate to the linked page
+            // Add event listeners to resolve buttons
+            const resolveButtons = document.querySelectorAll('.resolve-btn');
+            resolveButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const alertItem = this.closest('.alert-item');
+                    alertItem.style.opacity = '0';
+                    setTimeout(() => {
+                        alertItem.remove();
+                    }, 300);
                 });
             });
+            
+            console.log('Dashboard loaded successfully');
         });
     </script>
 </body>
