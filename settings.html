@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Smart Classroom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 20px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Settings Layout */
+        .settings-container {
+            display: flex;
+            gap: 30px;
+        }
+
+        /* Settings Sidebar */
+        .settings-sidebar {
+            width: 250px;
+            flex-shrink: 0;
+        }
+
+        .settings-nav {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: #f8f9fa;
+            color: #667eea;
+        }
+
+        .nav-item.active {
+            background: #f0f5ff;
+            color: #667eea;
+            border-left-color: #667eea;
+            font-weight: 500;
+        }
+
+        .nav-icon {
+            width: 20px;
+            margin-right: 12px;
+            text-align: center;
+        }
+
+        /* Settings Content */
+        .settings-content {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            min-height: 600px;
+        }
+
+        .settings-header {
+            margin-bottom: 30px;
+        }
+
+        .settings-header h2 {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .settings-header p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        /* Form Elements */
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .form-section h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            transform: scale(1.2);
+        }
+
+        .help-text {
+            color: #7f8c8d;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e0e6ed;
+            color: #2c3e50;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d9e3;
+        }
+
+        .btn-danger {
+            background: #ff4757;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #ff3742;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #667eea;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* User List */
+        .user-list {
+            list-style: none;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .user-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-name {
+            color: #2c3e50;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .user-role {
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .user-action {
+            color: #667eea;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .user-action:hover {
+            color: #764ba2;
+        }
+
+        /* Theme Options */
+        .theme-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .theme-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-option:hover {
+            border-color: #667eea;
+        }
+
+        .theme-option.active {
+            border-color: #667eea;
+            background: #f0f5ff;
+        }
+
+        .theme-preview {
+            width: 100%;
+            height: 80px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .theme-name {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        /* Danger Zone */
+        .danger-zone {
+            background: #fff5f5;
+            border: 1px solid #ffe0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .danger-zone h3 {
+            color: #ff4757;
+            margin-bottom: 15px;
+        }
+
+        .danger-zone p {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* Content Sections - Initially Hidden */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .settings-container {
+                flex-direction: column;
+            }
+
+            .settings-sidebar {
+                width: 100%;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .theme-options {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1><i class="fas fa-cog"></i> System Settings</h1>
+        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="settings-container">
+            <!-- Settings Sidebar -->
+            <div class="settings-sidebar">
+                <div class="settings-nav">
+                    <div class="nav-item active" data-section="account-settings">
+                        <span class="nav-icon"><i class="fas fa-user-cog"></i></span>
+                        <span>Account Settings</span>
+                    </div>
+                    <div class="nav-item" data-section="user-management">
+                        <span class="nav-icon"><i class="fas fa-users"></i></span>
+                        <span>User Management</span>
+                    </div>
+                    <div class="nav-item" data-section="appearance">
+                        <span class="nav-icon"><i class="fas fa-palette"></i></span>
+                        <span>Appearance</span>
+                    </div>
+                    <div class="nav-item" data-section="notifications">
+                        <span class="nav-icon"><i class="fas fa-bell"></i></span>
+                        <span>Notifications</span>
+                    </div>
+                    <div class="nav-item" data-section="data-management">
+                        <span class="nav-icon"><i class="fas fa-database"></i></span>
+                        <span>Data Management</span>
+                    </div>
+                    <div class="nav-item" data-section="security">
+                        <span class="nav-icon"><i class="fas fa-shield-alt"></i></span>
+                        <span>Security</span>
+                    </div>
+                    <div class="nav-item" data-section="integrations">
+                        <span class="nav-icon"><i class="fas fa-plug"></i></span>
+                        <span>Integrations</span>
+                    </div>
+                    <div class="nav-item" data-section="about">
+                        <span class="nav-icon"><i class="fas fa-info-circle"></i></span>
+                        <span>About</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="settings-content">
+                <!-- Account Settings Section -->
+                <div id="account-settings" class="content-section active">
+                    <div class="settings-header">
+                        <h2>Account Settings</h2>
+                        <p>Manage your account preferences and profile information</p>
+                    </div>
+
+                    <!-- Profile Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-user"></i> Profile Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" value="John">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" value="Doe">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" value="john.doe@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" value="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="department">Department</label>
+                            <select id="department">
+                                <option>Administration</option>
+                                <option selected>Computer Science</option>
+                                <option>Mathematics</option>
+                                <option>Physics</option>
+                                <option>Chemistry</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Preferences -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-sliders-h"></i> Preferences</h3>
+                        <div class="form-group">
+                            <label for="language">Language</label>
+                            <select id="language">
+                                <option selected>English</option>
+                                <option>Spanish</option>
+                                <option>French</option>
+                                <option>German</option>
+                                <option>Chinese</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="timezone">Timezone</label>
+                            <select id="timezone">
+                                <option>(GMT-12:00) International Date Line West</option>
+                                <option>(GMT-11:00) Midway Island, Samoa</option>
+                                <option>(GMT-10:00) Hawaii</option>
+                                <option>(GMT-09:00) Alaska</option>
+                                <option selected>(GMT-08:00) Pacific Time (US & Canada)</option>
+                                <option>(GMT-07:00) Mountain Time (US & Canada)</option>
+                                <option>(GMT-06:00) Central Time (US & Canada)</option>
+                                <option>(GMT-05:00) Eastern Time (US & Canada)</option>
+                                <option>(GMT-04:00) Atlantic Time (Canada)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateFormat">Date Format</label>
+                            <select id="dateFormat">
+                                <option selected>MM/DD/YYYY</option>
+                                <option>DD/MM/YYYY</option>
+                                <option>YYYY-MM-DD</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Notification Settings -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-bell"></i> Notification Preferences</h3>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="emailNotifications" checked>
+                                <label for="emailNotifications">Email Notifications</label>
+                            </div>
+                            <div class="help-text">Receive important updates via email</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="pushNotifications" checked>
+                                <label for="pushNotifications">Push Notifications</label>
+                            </div>
+                            <div class="help-text">Receive browser notifications</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="scheduleAlerts" checked>
+                                <label for="scheduleAlerts">Schedule Change Alerts</label>
+                            </div>
+                            <div class="help-text">Get notified about timetable changes</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="maintenanceAlerts">
+                                <label for="maintenanceAlerts">Maintenance Alerts</label>
+                            </div>
+                            <div class="help-text">Get notified about system maintenance</div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+
+                    <!-- Danger Zone -->
+                    <div class="danger-zone">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                        <p>These actions are irreversible. Please proceed with caution.</p>
+                        <div class="form-group">
+                            <button class="btn btn-danger">
+                                <i class="fas fa-sign-out-alt"></i> Deactivate Account
+                            </button>
+                            <div class="help-text">Temporarily disable your account</div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i> Delete Account
+                            </button>
+                            <div class="help-text">Permanently delete your account and all data</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Management Section -->
+                <div id="user-management" class="content-section">
+                    <div class="settings-header">
+                        <h2>User Management</h2>
+                        <p>Manage system users and their permissions</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-user-plus"></i> Add New User</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newUserName">Full Name</label>
+                                <input type="text" id="newUserName" placeholder="Enter full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="newUserEmail">Email Address</label>
+                                <input type="email" id="newUserEmail" placeholder="Enter email address">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newUserRole">Role</label>
+                                <select id="newUserRole">
+                                    <option>Administrator</option>
+                                    <option>Faculty</option>
+                                    <option>Student</option>
+                                    <option>Guest</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="newUserDepartment">Department</label>
+                                <select id="newUserDepartment">
+                                    <option>Computer Science</option>
+                                    <option>Mathematics</option>
+                                    <option>Physics</option>
+                                    <option>Chemistry</option>
+                                    <option>Administration</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add User
+                        </button>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-users"></i> Existing Users</h3>
+                        <div class="user-list">
+                            <div class="user-item">
+                                <div class="user-avatar">JD</div>
+                                <div class="user-details">
+                                    <div class="user-name">John Doe</div>
+                                    <div class="user-role">Administrator • Computer Science</div>
+                                </div>
+                                <div class="user-actions">
+                                    <span class="user-action"><i class="fas fa-edit"></i> Edit</span>
+                                    <span class="user-action"><i class="fas fa-trash"></i> Delete</span>
+                                </div>
+                            </div>
+                            <div class="user-item">
+                                <div class="user-avatar">SJ</div>
+                                <div class="user-details">
+                                    <div class="user-name">Sarah Johnson</div>
+                                    <div class="user-role">Faculty • Physics</div>
+                                </div>
+                                <div class="user-actions">
+                                    <span class="user-action"><i class="fas fa-edit"></i> Edit</span>
+                                    <span class="user-action"><i class="fas fa-trash"></i> Delete</span>
+                                </div>
+                            </div>
+                            <div class="user-item">
+                                <div class="user-avatar">EB</div>
+                                <div class="user-details">
+                                    <div class="user-name">Emily Brown</div>
+                                    <div class="user-role">Faculty • Mathematics</div>
+                                </div>
+                                <div class="user-actions">
+                                    <span class="user-action"><i class="fas fa-edit"></i> Edit</span>
+                                    <span class="user-action"><i class="fas fa-trash"></i> Delete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appearance Section -->
+                <div id="appearance" class="content-section">
+                    <div class="settings-header">
+                        <h2>Appearance</h2>
+                        <p>Customize the look and feel of the application</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-paint-brush"></i> Theme Selection</h3>
+                        <div class="theme-options">
+                            <div class="theme-option active" data-theme="default">
+                                <div class="theme-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                                <div class="theme-name">Default Theme</div>
+                            </div>
+                            <div class="theme-option" data-theme="dark">
+                                <div class="theme-preview" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);"></div>
+                                <div class="theme-name">Dark Mode</div>
+                            </div>
+                            <div class="theme-option" data-theme="light">
+                                <div class="theme-preview" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border: 1px solid #ddd;"></div>
+                                <div class="theme-name">Light Mode</div>
+                            </div>
+                            <div class="theme-option" data-theme="professional">
+                                <div class="theme-preview" style="background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);"></div>
+                                <div class="theme-name">Professional</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-desktop"></i> Layout Options</h3>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="compactMode" checked>
+                                <label for="compactMode">Compact Mode</label>
+                            </div>
+                            <div class="help-text">Reduce padding and spacing for more content visibility</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="sidebarCollapse">
+                                <label for="sidebarCollapse">Collapsible Sidebar</label>
+                            </div>
+                            <div class="help-text">Allow sidebar to be collapsed for more workspace</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="highContrast">
+                                <label for="highContrast">High Contrast Mode</label>
+                            </div>
+                            <div class="help-text">Increase color contrast for better accessibility</div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i> Apply Changes
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Notifications Section -->
+                <div id="notifications" class="content-section">
+                    <div class="settings-header">
+                        <h2>Notification Settings</h2>
+                        <p>Manage how and when you receive notifications</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-bell"></i> Notification Channels</h3>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="emailChannel" checked>
+                                <label for="emailChannel">Email Notifications</label>
+                            </div>
+                            <div class="help-text">Receive important updates via email</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="browserChannel" checked>
+                                <label for="browserChannel">Browser Notifications</label>
+                            </div>
+                            <div class="help-text">Receive browser notifications</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="mobileChannel">
+                                <label for="mobileChannel">Mobile Push Notifications</label>
+                            </div>
+                            <div class="help-text">Receive push notifications on your mobile device</div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-calendar-alt"></i> Schedule Alerts</h3>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="scheduleChanges" checked>
+                                <label for="scheduleChanges">Schedule Change Alerts</label>
+                            </div>
+                            <div class="help-text">Get notified about timetable changes</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="classReminders" checked>
+                                <label for="classReminders">Class Reminders</label>
+                            </div>
+                            <div class="help-text">Receive reminders before classes start</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="deadlineAlerts" checked>
+                                <label for="deadlineAlerts">Deadline Alerts</label>
+                            </div>
+                            <div class="help-text">Get notified about upcoming deadlines</div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-cog"></i> System Alerts</h3>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="maintenanceAlerts2">
+                                <label for="maintenanceAlerts2">Maintenance Alerts</label>
+                            </div>
+                            <div class="help-text">Get notified about system maintenance</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="securityAlerts" checked>
+                                <label for="securityAlerts">Security Alerts</label>
+                            </div>
+                            <div class="help-text">Receive important security notifications</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="updateAlerts" checked>
+                                <label for="updateAlerts">Update Notifications</label>
+                            </div>
+                            <div class="help-text">Get notified about system updates</div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Preferences
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Data Management Section -->
+                <div id="data-management" class="content-section">
+                    <div class="settings-header">
+                        <h2>Data Management</h2>
+                        <p>Manage your data, backups, and exports</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-database"></i> Data Export</h3>
+                        <div class="form-group">
+                            <label for="exportFormat">Export Format</label>
+                            <select id="exportFormat">
+                                <option>CSV</option>
+                                <option>Excel</option>
+                                <option>JSON</option>
+                                <option>PDF</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exportRange">Data Range</label>
+                            <select id="exportRange">
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>Last 90 days</option>
+                                <option>This semester</option>
+                                <option>All time</option>
+                                <option>Custom range</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dataType">Data Type</label>
+                            <select id="dataType">
+                                <option>Timetables</option>
+                                <option>Attendance Records</option>
+                                <option>Student Data</option>
+                                <option>Faculty Data</option>
+                                <option>All Data</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-download"></i> Export Data
+                        </button>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-cloud-upload-alt"></i> Data Import</h3>
+                        <div class="form-group">
+                            <label for="importFile">Select File</label>
+                            <input type="file" id="importFile">
+                            <div class="help-text">Supported formats: CSV, Excel, JSON</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="importType">Import Type</label>
+                            <select id="importType">
+                                <option>Timetables</option>
+                                <option>Student Data</option>
+                                <option>Faculty Data</option>
+                                <option>Course Data</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-upload"></i> Import Data
+                        </button>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-history"></i> Backup & Restore</h3>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="autoBackup" checked>
+                                <label for="autoBackup">Automatic Backups</label>
+                            </div>
+                            <div class="help-text">Automatically backup data daily</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="backupFrequency">Backup Frequency</label>
+                            <select id="backupFrequency">
+                                <option>Daily</option>
+                                <option>Weekly</option>
+                                <option>Monthly</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-plus"></i> Create Backup
+                            </button>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-history"></i> Restore Backup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Section -->
+                <div id="security" class="content-section">
+                    <div class="settings-header">
+                        <h2>Security Settings</h2>
+                        <p>Manage security preferences and authentication</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-user-shield"></i> Authentication</h3>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="twoFactorAuth">
+                                <label for="twoFactorAuth">Two-Factor Authentication</label>
+                            </div>
+                            <div class="help-text">Add an extra layer of security to your account</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="passwordExpiry" checked>
+                                <label for="passwordExpiry">Password Expiration</label>
+                            </div>
+                            <div class="help-text">Require password change every 90 days</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="sessionTimeout" checked>
+                                <label for="sessionTimeout">Session Timeout</label>
+                            </div>
+                            <div class="help-text">Automatically log out after 30 minutes of inactivity</div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-lock"></i> Password Management</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" id="confirmPassword">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-key"></i> Change Password
+                        </button>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-shield-alt"></i> Privacy Settings</h3>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="dataCollection" checked>
+                                <label for="dataCollection">Allow Anonymous Data Collection</label>
+                            </div>
+                            <div class="help-text">Help us improve by sharing anonymous usage data</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="personalizedAds">
+                                <label for="personalizedAds">Personalized Advertisements</label>
+                            </div>
+                            <div class="help-text">Show relevant advertisements based on your usage</div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Security Settings
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Integrations Section -->
+                <div id="integrations" class="content-section">
+                    <div class="settings-header">
+                        <h2>Integrations</h2>
+                        <p>Connect with other services and platforms</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-plug"></i> Available Integrations</h3>
+                        
+                        <div class="user-item">
+                            <div class="user-avatar" style="background: #4285F4;"><i class="fab fa-google"></i></div>
+                            <div class="user-details">
+                                <div class="user-name">Google Calendar</div>
+                                <div class="user-role">Sync your timetable with Google Calendar</div>
+                            </div>
+                            <div class="user-actions">
+                                <span class="user-action"><i class="fas fa-link"></i> Connect</span>
+                            </div>
+                        </div>
+                        
+                        <div class="user-item">
+                            <div class="user-avatar" style="background: #0084FF;"><i class="fab fa-microsoft"></i></div>
+                            <div class="user-details">
+                                <div class="user-name">Microsoft Outlook</div>
+                                <div class="user-role">Sync with Outlook Calendar</div>
+                            </div>
+                            <div class="user-actions">
+                                <span class="user-action"><i class="fas fa-link"></i> Connect</span>
+                            </div>
+                        </div>
+                        
+                        <div class="user-item">
+                            <div class="user-avatar" style="background: #00AFF0;"><i class="fab fa-slack"></i></div>
+                            <div class="user-details">
+                                <div class="user-name">Slack</div>
+                                <div class="user-role">Receive notifications in Slack</div>
+                            </div>
+                            <div class="user-actions">
+                                <span class="user-action"><i class="fas fa-link"></i> Connect</span>
+                            </div>
+                        </div>
+                        
+                        <div class="user-item">
+                            <div class="user-avatar" style="background: #FF0000;"><i class="fab fa-youtube"></i></div>
+                            <div class="user-details">
+                                <div class="user-name">YouTube</div>
+                                <div class="user-role">Embed educational videos</div>
+                            </div>
+                            <div class="user-actions">
+                                <span class="user-action"><i class="fas fa-link"></i> Connect</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-code"></i> API Access</h3>
+                        <div class="form-group">
+                            <label for="apiKey">API Key</label>
+                            <input type="text" id="apiKey" value="sk_****************************" readonly>
+                            <div class="help-text">Use this key to authenticate API requests</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="apiAccess" checked>
+                                <label for="apiAccess">Enable API Access</label>
+                            </div>
+                            <div class="help-text">Allow external applications to access your data via API</div>
+                        </div>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Regenerate API Key
+                        </button>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Integration Settings
+                        </button>
+                    </div>
+                </div>
+
+                <!-- About Section -->
+                <div id="about" class="content-section">
+                    <div class="settings-header">
+                        <h2>About Smart Classroom</h2>
+                        <p>Information about your application</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-info-circle"></i> Application Information</h3>
+                        <div class="form-group">
+                            <label>Version</label>
+                            <div class="help-text">2.1.0</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Release Date</label>
+                            <div class="help-text">October 15, 2023</div>
+                        </div>
+                        <div class="form-group">
+                            <label>License</label>
+                            <div class="help-text">Educational Use Only</div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-award"></i> Credits</h3>
+                        <div class="form-group">
+                            <label>Developed By</label>
+                            <div class="help-text">Smart Classroom Development Team</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Design</label>
+                            <div class="help-text">UI/UX Team</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Special Thanks</label>
+                            <div class="help-text">Our beta testers and educational partners</div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-link"></i> Links</h3>
+                        <div class="form-group">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-question-circle"></i> Help Center
+                            </button>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-book"></i> Documentation
+                            </button>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-shield-alt"></i> Privacy Policy
+                            </button>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-file-alt"></i> Terms of Service
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-bug"></i> Debug Information</h3>
+                        <div class="form-group">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-bug"></i> Run Diagnostics
+                            </button>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-download"></i> Download Logs
+                            </button>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-redo"></i> Check for Updates
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle navigation between settings sections
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all navigation items and content sections
+            const navItems = document.querySelectorAll('.nav-item');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            // Add click event listeners to navigation items
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Get the target section from data attribute
+                    const targetSection = this.getAttribute('data-section');
+                    
+                    // Remove active class from all nav items and content sections
+                    navItems.forEach(navItem => navItem.classList.remove('active'));
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Add active class to clicked nav item
+                    this.classList.add('active');
+                    
+                    // Show the target content section
+                    document.getElementById(targetSection).classList.add('active');
+                });
+            });
+            
+            // Save button functionality
+            const saveButtons = document.querySelectorAll('.btn-primary');
+            saveButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (!this.classList.contains('no-loading')) {
+                        e.preventDefault();
+                        
+                        // Show saving animation
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                        this.disabled = true;
+                        
+                        // Simulate save operation
+                        setTimeout(() => {
+                            alert('Settings saved successfully!');
+                            this.innerHTML = originalText;
+                            this.disabled = false;
+                        }, 1500);
+                    }
+                });
+            });
+            
+            // Theme selection functionality
+            const themeOptions = document.querySelectorAll('.theme-option');
+            themeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    themeOptions.forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const theme = this.getAttribute('data-theme');
+                    console.log(`Theme changed to: ${theme}`);
+                    // In a real application, this would change the UI theme
+                });
+            });
+            
+            // Connect buttons for integrations
+            const connectButtons = document.querySelectorAll('.user-action');
+            connectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const service = this.closest('.user-item').querySelector('.user-name').textContent;
+                    alert(`Connecting to ${service}...\n\nIn a real application, this would initiate OAuth flow.`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

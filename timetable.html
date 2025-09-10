@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable Management - Smart Classroom</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 20px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 24px;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Action Bar */
+        .action-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .filter-section select {
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-generate {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 233, 123, 0.3);
+        }
+
+        /* Timetable Grid */
+        .timetable-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .timetable th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .timetable td {
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            text-align: center;
+            min-height: 80px;
+            position: relative;
+        }
+
+        .timetable tr:hover td {
+            background: #f8f9fa;
+        }
+
+        .time-slot {
+            background: #f5f7fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        /* Class Block */
+        .class-block {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+            margin: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .class-block:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .class-block.math {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .class-block.science {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .class-block.english {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .class-block .subject {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .class-block .details {
+            font-size: 11px;
+            opacity: 0.9;
+            margin-top: 3px;
+        }
+
+        /* Empty Slot */
+        .empty-slot {
+            color: #95a5a6;
+            font-style: italic;
+            padding: 20px;
+            cursor: pointer;
+            border: 2px dashed transparent;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .empty-slot:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        /* Conflict Indicator */
+        .conflict {
+            background: #ff4757 !important;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-box h3 {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .stat-box .value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* Modal for Adding Classes */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 500px;
+            max-width: 90%;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-cancel {
+            padding: 10px 20px;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-save {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>📅 Timetable Management</h1>
+        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <div class="filter-section">
+                <select id="departmentFilter">
+                    <option>All Departments</option>
+                    <option>Computer Science</option>
+                    <option>Mathematics</option>
+                    <option>Physics</option>
+                    <option>Chemistry</option>
+                </select>
+                <select id="semesterFilter">
+                    <option>All Semesters</option>
+                    <option>Semester 1</option>
+                    <option>Semester 2</option>
+                    <option>Semester 3</option>
+                    <option>Semester 4</option>
+                </select>
+                <select id="batchFilter">
+                    <option>All Batches</option>
+                    <option>Batch A</option>
+                    <option>Batch B</option>
+                    <option>Batch C</option>
+                </select>
+            </div>
+            <button class="btn-generate" onclick="generateTimetable()">
+                🤖 Auto Generate Timetable
+            </button>
+        </div>
+
+        <!-- Timetable Grid -->
+        <div class="timetable-container">
+            <table class="timetable">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-slot">9:00 - 10:00</td>
+                        <td>
+                            <div class="class-block math">
+                                <div class="subject">Mathematics</div>
+                                <div class="details">Prof. Smith • Room 101</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block science">
+                                <div class="subject">Physics</div>
+                                <div class="details">Dr. Johnson • Lab 2</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="empty-slot" onclick="addNewClass(this)">
+                                + Add Class
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block english">
+                                <div class="subject">English</div>
+                                <div class="details">Ms. Davis • Room 203</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block math">
+                                <div class="subject">Mathematics</div>
+                                <div class="details">Prof. Smith • Room 101</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="empty-slot" onclick="addNewClass(this)">
+                                + Add Class
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">10:00 - 11:00</td>
+                        <td>
+                            <div class="empty-slot" onclick="addNewClass(this)">
+                                + Add Class
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block english">
+                                <div class="subject">English</div>
+                                <div class="details">Ms. Davis • Room 203</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block science">
+                                <div class="subject">Chemistry</div>
+                                <div class="details">Dr. Wilson • Lab 1</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="empty-slot" onclick="addNewClass(this)">
+                                + Add Class
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block science">
+                                <div class="subject">Physics</div>
+                                <div class="details">Dr. Johnson • Lab 2</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block math">
+                                <div class="subject">Statistics</div>
+                                <div class="details">Prof. Brown • Room 105</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">11:00 - 12:00</td>
+                        <td>
+                            <div class="class-block science">
+                                <div class="subject">Biology</div>
+                                <div class="details">Dr. Miller • Lab 3</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="empty-slot" onclick="addNewClass(this)">
+                                + Add Class
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block math">
+                                <div class="subject">Calculus</div>
+                                <div class="details">Prof. Taylor • Room 102</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block science">
+                                <div class="subject">Biology</div>
+                                <div class="details">Dr. Miller • Lab 3</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="empty-slot" onclick="addNewClass(this)">
+                                + Add Class
+                            </div>
+                        </td>
+                        <td>
+                            <div class="empty-slot" onclick="addNewClass(this)">
+                                + Add Class
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">12:00 - 1:00</td>
+                        <td colspan="6" style="background: #f5f7fa; color: #7f8c8d; font-weight: 600;">
+                            🍽️ Lunch Break
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">1:00 - 2:00</td>
+                        <td>
+                            <div class="class-block english">
+                                <div class="subject">Literature</div>
+                                <div class="details">Ms. Anderson • Room 204</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block math">
+                                <div class="subject">Algebra</div>
+                                <div class="details">Prof. White • Room 103</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="empty-slot" onclick="addNewClass(this)">
+                                + Add Class
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block science">
+                                <div class="subject">Chemistry</div>
+                                <div class="details">Dr. Wilson • Lab 1</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-block english">
+                                <div class="subject">Literature</div>
+                                <div class="details">Ms. Anderson • Room 204</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="empty-slot" onclick="addNewClass(this)">
+                                + Add Class
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="stats-section">
+            <div class="stat-box">
+                <h3>Total Classes</h3>
+                <div class="value">42</div>
+            </div>
+            <div class="stat-box">
+                <h3>Free Slots</h3>
+                <div class="value">18</div>
+            </div>
+            <div class="stat-box">
+                <h3>Conflicts</h3>
+                <div class="value" style="color: #ff4757;">0</div>
+            </div>
+            <div class="stat-box">
+                <h3>Utilization</h3>
+                <div class="value">70%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Adding/Editing Classes -->
+    <div class="modal" id="classModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Class</h2>
+            </div>
+            <div class="form-group">
+                <label>Subject</label>
+                <input type="text" id="subject" placeholder="Enter subject name">
+            </div>
+            <div class="form-group">
+                <label>Faculty</label>
+                <select id="faculty">
+                    <option>Select Faculty</option>
+                    <option>Prof. Smith</option>
+                    <option>Dr. Johnson</option>
+                    <option>Ms. Davis</option>
+                    <option>Dr. Wilson</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Room</label>
+                <select id="room">
+                    <option>Select Room</option>
+                    <option>Room 101</option>
+                    <option>Room 102</option>
+                    <option>Lab 1</option>
+                    <option>Lab 2</option>
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button class="btn-save" onclick="saveClass()">Save Class</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to generate timetable automatically
+        function generateTimetable() {
+            alert('🤖 AI Timetable Generation Started!\n\nThis will:\n1. Check faculty availability\n2. Verify room capacity\n3. Avoid conflicts\n4. Optimize schedule\n\n(Backend integration needed for actual generation)');
+            
+            // TODO: Backend API call for timetable generation
+            /*
+            fetch('/api/timetable/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                },
+                body: JSON.stringify({
+                    department: document.getElementById('departmentFilter').value,
+                    semester: document.getElementById('semesterFilter').value,
+                    batch: document.getElementById('batchFilter').value
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload(); // Refresh to show new timetable
+                } else {
+                    alert('Generation failed: ' + data.message);
+                }
+            });
+            */
+        }
+
+        // Function to add new class
+        function addNewClass(element) {
+            document.getElementById('classModal').style.display = 'flex';
+        }
+
+        // Function to close modal
+        function closeModal() {
+            document.getElementById('classModal').style.display = 'none';
+        }
+
+        // Function to save class
+        function saveClass() {
+            const subject = document.getElementById('subject').value;
+            const faculty = document.getElementById('faculty').value;
+            const room = document.getElementById('room').value;
+            
+            if (subject && faculty !== 'Select Faculty' && room !== 'Select Room') {
+                alert(`Class Added!\n\nSubject: ${subject}\nFaculty: ${faculty}\nRoom: ${room}\n\n(Backend integration needed to save to database)`);
+                closeModal();
+                
+                // TODO: Backend API call to save class
+                /*
+                fetch('/api/timetable/class', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                    },
+                    body: JSON.stringify({
+                        subject: subject,
+                        faculty: faculty,
+                        room: room,
+                        timeSlot: currentTimeSlot,
+                        day: currentDay
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                });
+                */
+            } else {
+                alert('Please fill all fields!');
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('classModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
