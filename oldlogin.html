@@ -13,31 +13,27 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #434343 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
         }
 
         .login-container {
-            background: rgba(0, 0, 0, 0.7);
+            background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             width: 400px;
             max-width: 90%;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .login-header {
-            background: linear-gradient(135deg, #000000 0%, #434343 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 40px 30px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .login-header h1 {
@@ -61,7 +57,7 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #ddd;
+            color: #555;
             font-weight: 500;
             font-size: 14px;
         }
@@ -69,22 +65,16 @@
         .form-group input {
             width: 100%;
             padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 15px;
             transition: all 0.3s ease;
-            color: #fff;
-        }
-
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #6200ea;
-            box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.2);
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .form-group input.error {
@@ -108,7 +98,7 @@
         .remember-forgot label {
             display: flex;
             align-items: center;
-            color: #bbb;
+            color: #666;
             font-size: 14px;
         }
 
@@ -117,20 +107,20 @@
         }
 
         .remember-forgot a {
-            color: #bb86fc;
+            color: #667eea;
             text-decoration: none;
             font-size: 14px;
             transition: color 0.3s ease;
         }
 
         .remember-forgot a:hover {
-            color: #6200ea;
+            color: #764ba2;
         }
 
         .login-button {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #6200ea 0%, #3700b3 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -138,60 +128,37 @@
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 20px;
         }
 
         .login-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(98, 0, 234, 0.3);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
 
         .login-button:active {
             transform: translateY(0);
         }
 
-        .student-login-link {
-            text-align: center;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .student-login-link a {
-            color: #bb86fc;
-            text-decoration: none;
-            font-weight: 600;
-            display: block;
-            padding: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .student-login-link a:hover {
-            color: #6200ea;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 6px;
-        }
-
         .login-footer {
             text-align: center;
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid #e0e0e0;
         }
 
         .login-footer p {
-            color: #bbb;
+            color: #666;
             font-size: 14px;
         }
 
         .login-footer a {
-            color: #bb86fc;
+            color: #667eea;
             text-decoration: none;
             font-weight: 600;
         }
 
         .login-footer a:hover {
-            color: #6200ea;
+            color: #764ba2;
         }
 
         /* Loading state */
@@ -241,9 +208,9 @@
         
         <form class="login-form" id="loginForm">
             <div class="form-group">
-                <label for="username">Username/ID</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username or ID" required>
-                <div class="error-message" id="usernameError">Please enter a valid username or ID</div>
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="admin@example.com" required>
+                <div class="error-message" id="emailError">Please enter a valid email address</div>
             </div>
             
             <div class="form-group">
@@ -259,11 +226,7 @@
                 <a href="#">Forgot Password?</a>
             </div>
             
-            <button type="submit" class="login-button" id="loginBtn">Login</button>
-            
-            <div class="student-login-link">
-                <a href="student-login.html">Student? Login here</a>
-            </div>
+            <button type="submit" class="login-button" id="loginBtn">Sign In</button>
             
             <div class="login-footer">
                 <p>Don't have an account? <a href="#">Contact Administrator</a></p>
@@ -281,13 +244,14 @@
             document.querySelectorAll('input').forEach(input => input.classList.remove('error'));
             
             // Get form values
-            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            // Validate username
-            if (!username.trim()) {
-                document.getElementById('username').classList.add('error');
-                document.getElementById('usernameError').style.display = 'block';
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('email').classList.add('error');
+                document.getElementById('emailError').style.display = 'block';
                 return;
             }
             
@@ -306,6 +270,43 @@
             // TODO: Replace with actual backend API call
             // Simulating API call with timeout
             setTimeout(() => {
+                /* 
+                // Actual backend call would look like:
+                try {
+                    const response = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        // Store token in localStorage
+                        localStorage.setItem('authToken', data.token);
+                        localStorage.setItem('userRole', data.role);
+                        
+                        // Redirect based on role
+                        if (data.role === 'admin') {
+                            window.location.href = '/dashboard.html';
+                        } else {
+                            window.location.href = '/user-dashboard.html';
+                        }
+                    } else {
+                        // Show error message
+                        alert(data.message || 'Login failed');
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    alert('Network error. Please try again.');
+                } finally {
+                    loginBtn.classList.remove('loading');
+                    loginBtn.disabled = false;
+                }
+                */
+                
                 // Mock login success - redirect to dashboard
                 alert('Login successful! (Mock login - redirecting to dashboard)');
                 window.location.href = 'dashboard.html';
@@ -316,13 +317,14 @@
         });
         
         // Real-time validation feedback
-        document.getElementById('username').addEventListener('blur', function() {
-            if (!this.value.trim()) {
+        document.getElementById('email').addEventListener('blur', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (this.value && !emailRegex.test(this.value)) {
                 this.classList.add('error');
-                document.getElementById('usernameError').style.display = 'block';
+                document.getElementById('emailError').style.display = 'block';
             } else {
                 this.classList.remove('error');
-                document.getElementById('usernameError').style.display = 'none';
+                document.getElementById('emailError').style.display = 'none';
             }
         });
         
